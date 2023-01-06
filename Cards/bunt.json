@@ -1,0 +1,11 @@
+{
+  "CardName": "Bunt",
+  "CardDefense": 0,
+  "CardDamage": 5,
+  "CardHealth": 1,
+  "StrikeChance": 0,
+  "HitChance":  100,
+  "Bases": 1,
+  "CardDescription": "Bunt a pitch. If Bunt retires a pitch, gain a base runner. ",
+  "SpecialText": "FOUL BALL: If Bunt defeats itself in a pitch matchup, draw a new batting card."
+}

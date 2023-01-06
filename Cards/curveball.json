@@ -1,0 +1,10 @@
+{
+  "CardName": "Curveball",
+  "CardDefense": 1,
+  "CardDamage": 2,
+  "CardHealth": 5,
+  "StrikeChance": 100,
+  "Bases": 0,
+  "CardDescription": "Throw a curveball to the plate. 100% strike chance.",
+  "SpecialText": "12-6: Force a double play at scoring position."
+}

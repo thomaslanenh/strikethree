@@ -1,0 +1,8 @@
+{
+  "CardName": "Fastball",
+  "CardDefense": 0,
+  "CardDamage": 1,
+  "CardHealth": 1,
+  "StrikeChance":  70,
+  "CardDescription": "A very fast ball."
+}

@@ -1,0 +1,7 @@
+Source File,Dest File,Processor Type,Content Type,Source File Size,Dest File Size,Build Seconds
+"C:/Users/disne/source/repos/StrikeThree/Content/Cards/bunt.png","C:/Users/disne/source/repos/StrikeThree/Content/bin/Windows/Content/Cards/bunt.xnb","TextureProcessor","Texture2DContent",288,4181,0.1107104
+"C:/Users/disne/source/repos/StrikeThree/Content/Cards/curveball.png","C:/Users/disne/source/repos/StrikeThree/Content/bin/Windows/Content/Cards/curveball.xnb","TextureProcessor","Texture2DContent",281,4181,0.1173039
+"C:/Users/disne/source/repos/StrikeThree/Content/Fields/baseballfield.png","C:/Users/disne/source/repos/StrikeThree/Content/bin/Windows/Content/Fields/baseballfield.xnb","TextureProcessor","Texture2DContent",3181,4181,0.0990178
+"C:/Users/disne/source/repos/StrikeThree/Content/File.fx","C:/Users/disne/source/repos/StrikeThree/Content/bin/Windows/Content/Blur.xnb","EffectProcessor","CompiledEffectContent",692,766,0.2867424
+"C:/Users/disne/source/repos/StrikeThree/Content/Fonts/InGameFont.spritefont","C:/Users/disne/source/repos/StrikeThree/Content/bin/Windows/Content/Fonts/InGameFont.xnb","FontDescriptionProcessor","SpriteFontContent",2068,21535,0.2243966
+"C:/Users/disne/source/repos/StrikeThree/Content/Fonts/Varsity.spritefont","C:/Users/disne/source/repos/StrikeThree/Content/bin/Windows/Content/Fonts/Varsity.xnb","FontDescriptionProcessor","SpriteFontContent",2078,37919,0.1822339
