@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework.Input;
 using StrikeThree.Commands;
 using System.Diagnostics;
 using Apos.Shapes;
+using System;
 
 namespace StrikeThree
 {
@@ -20,10 +21,18 @@ namespace StrikeThree
         private Texture2D CurrentHit;
         private Texture2D BallField;
 
+        private ICommand _inputCommand;
+
         private bool Clicked = false;
 
         private Invoker _Invoker = new Invoker();
         private Invoker _DrawInvoker = new Invoker();
+
+        private float timer = 5;
+        const float TIMER = 5;
+        private bool drawPitchText = true;
+
+        private static MouseState previousKeyState;
 
         public Game1()
         {
@@ -33,10 +42,10 @@ namespace StrikeThree
             IsMouseVisible = true;
         }
 
+
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
-
             base.Initialize();
         }
 
@@ -51,12 +60,29 @@ namespace StrikeThree
             CurrentPitch = Content.Load<Texture2D>("Cards/curveball");
             CurrentHit = Content.Load<Texture2D>("Cards/bunt");
             BallField = Content.Load<Texture2D>("Fields/baseballfield");
+
+
+            Globals.CurrentPitcherPic = Content.Load<Texture2D>("PlayerPics/PerryVonNuckleer");
+            Globals.CurrentHitPic = Content.Load<Texture2D>("PlayerPics/GrandSlam");
+
             // TODO: use this.Content to load your game content here
         }
 
         protected override void Update(GameTime gameTime)
         {
-            
+            Clicked = false;
+
+            float elapsedTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
+
+            timer -= elapsedTime;
+
+            if (timer < 0)
+            {
+                drawPitchText = !drawPitchText;
+                timer = TIMER;
+                Globals.CurrentPitchStatus = Globals.PitchStatus.NONE;
+            }
+
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
@@ -68,29 +94,26 @@ namespace StrikeThree
 
             var clickArea = new Rectangle(375, 408, 33, 10);
 
-            if (clickArea.Contains(mousePosition) && mouseState.LeftButton == ButtonState.Pressed && !Clicked){
+            if (clickArea.Contains(mousePosition) && mouseState.LeftButton == ButtonState.Pressed && previousKeyState.LeftButton != ButtonState.Pressed ){
                 Debug.WriteLine("IN THE ZONE");
                 Debug.WriteLine(Globals.CurrentPitch.CardName);
 
-                Clicked = true;
-
                 // See if Pitch defeats Bat
-                _Invoker.SetOnStart(new BuntVersusCurve(new Receivers.PitchingDuel()));
-                _Invoker.SetOnFinish(new CheckForOuts(new Receivers.PitchingDuel()));
+                _Invoker.SetOnStart(new BuntVersusCurve());
+                _Invoker.SetOnFinish(new CheckForOuts());
                 _Invoker.PerformActions();
-
-                Debug.WriteLine(Globals.Strikes);
-      
             }
-
             
             _DrawInvoker.PerformActions();
 
+            previousKeyState = Mouse.GetState();
             base.Update(gameTime);
         }
 
         protected override void Draw(GameTime gameTime)
         {
+            
+
             GraphicsDevice.Clear(Color.Gray);
             _spriteBatch.Begin();
 
@@ -132,10 +155,33 @@ namespace StrikeThree
 
             _sb.Begin();
             _DrawInvoker.SetOnStart(new ShowOuts(_sb));
+            _DrawInvoker.SetOnFinish(new ShowStrikes(_sb));
             _sb.End();
 
-            _spriteBatch.DrawString(InGameFont, "Duel", new Vector2(375, 400), Color.White);
+            _spriteBatch.DrawString(InGameFont, "Pitch", new Vector2(375, 400), Color.White);
 
+            _spriteBatch.Draw(Globals.CurrentPitcherPic, new Vector2(20,20), Color.White);
+            _spriteBatch.Draw(Globals.CurrentHitPic, new Vector2(650, 20), Color.White);
+
+            switch (Globals.CurrentPitchStatus)
+            {
+                case Globals.PitchStatus.FOUL:
+                    
+                    if (drawPitchText)
+                    {
+                        _spriteBatch.DrawString(Varsity, "FOUL BALL!", new Vector2(250, 250), Color.Red);
+                    }
+                    
+                    break;
+                case Globals.PitchStatus.STRIKE:
+                   
+                    if (drawPitchText)
+                    {
+                        _spriteBatch.DrawString(Varsity, "STRIKE!", new Vector2(250, 250), Color.Red);
+                    }
+                   
+                    break;
+            }
             _spriteBatch.End();
             base.Draw(gameTime);
         }

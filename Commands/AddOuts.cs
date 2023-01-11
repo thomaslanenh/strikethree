@@ -7,12 +7,11 @@ using System.Threading.Tasks;
 
 namespace StrikeThree.Commands
 {
-    internal class CheckForOuts : ICommand
+    internal static class AddOuts
     {
-
-        public void Execute()
+        public static void Execute(int outs)
         {
-            PitchingDuel.CheckForBatBattleOut();
+            PitchingDuel.AddOut(outs);
         }
     }
 }

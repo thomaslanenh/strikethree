@@ -1,5 +1,4 @@
-﻿using StrikeThree.Receivers;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -7,12 +6,12 @@ using System.Threading.Tasks;
 
 namespace StrikeThree.Commands
 {
-    internal class CheckForOuts : ICommand
+    internal class _buttonX: IButtonCommand
     {
 
-        public void Execute()
+        public void Execute(ICommand command)
         {
-            PitchingDuel.CheckForBatBattleOut();
+            command.Execute();
         }
     }
 }

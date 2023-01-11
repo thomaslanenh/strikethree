@@ -43,3 +43,5 @@ C:\Users\disne\source\repos\StrikeThree\bin\Debug\net6.0-windows\Content\Blur.xn
 C:\Users\disne\source\repos\StrikeThree\bin\Debug\net6.0-windows\Content\AposShapesEffect.xnb
 C:\Users\disne\source\repos\StrikeThree\bin\Debug\net6.0-windows\Apos.Shapes.dll
 C:\Users\disne\source\repos\StrikeThree\bin\Debug\net6.0-windows\Content\Fonts\Varsity.xnb
+C:\Users\disne\source\repos\StrikeThree\bin\Debug\net6.0-windows\Content\PlayerPics\GrandSlam.xnb
+C:\Users\disne\source\repos\StrikeThree\bin\Debug\net6.0-windows\Content\PlayerPics\PerryVonNuckleer.xnb

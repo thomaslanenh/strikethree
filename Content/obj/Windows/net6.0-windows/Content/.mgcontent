@@ -10,12 +10,16 @@
     <File>C:/Users/disne/source/repos/StrikeThree/Content/File.fx</File>
     <File>C:/Users/disne/source/repos/StrikeThree/Content/Fonts/InGameFont.spritefont</File>
     <File>C:/Users/disne/source/repos/StrikeThree/Content/Fonts/Varsity.spritefont</File>
+    <File>C:/Users/disne/source/repos/StrikeThree/Content/PlayerPics/GrandSlam.png</File>
+    <File>C:/Users/disne/source/repos/StrikeThree/Content/PlayerPics/PerryVonNuckleer.png</File>
   </SourceFiles>
   <DestFiles>
     <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File>Blur.fx</File>
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />
   </DestFiles>

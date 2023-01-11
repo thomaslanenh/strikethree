@@ -7,50 +7,106 @@ using System.Threading.Tasks;
 
 namespace StrikeThree.Receivers
 {
-    internal class PitchingDuel
+    internal static class PitchingDuel
     {
-        public PitchingDuel()
+       
+        public static void ChangePitchStatus(Globals.PitchStatus pitchStatus)
         {
-        
+            Globals.CurrentPitchStatus= pitchStatus;
         }
-
-        public void DestroyBothCards()
+        public static void DestroyBothCards()
         {
             Globals.CurrentPitch.Destroyed = true;
             Globals.CurrentHit.Destroyed = true;
         }
 
-        public void DestroyBatter()
+        public static void DestroyBatter()
         {
             Globals.CurrentHit.Destroyed = true;
         }
 
-        public void AddStrike()
+        public static void FoulBall()
         {
-            Globals.Strikes += 1;
+            // do foul ball animation 
+            if (Globals.Strikes < 2)
+            {
+                Globals.Strikes++;
+                // maybe should be replaced with a "discard batter"
+            }
+
+            ChangePitchStatus(Globals.PitchStatus.FOUL);
         }
 
-        public void CalculateStrikeChance()
+        public static void AddStrike(int strikes)
+        {
+            Globals.Strikes += strikes;
+            ChangePitchStatus(Globals.PitchStatus.STRIKE);
+        }
+
+        public static bool CalculateStrikeChance()
         {
             var currentPitchStrike = Globals.CurrentPitch.StrikeChance;
             var currentBatChance = Globals.CurrentHit.HitChance;
-            var totalResult = currentPitchStrike - currentBatChance;
-            Debug.WriteLine(totalResult);
 
-            if (totalResult <= 0)
+            var totalResult = currentPitchStrike - currentBatChance;
+            
+            
+            if (totalResult < 0)
             {
-                Debug.WriteLine("YOU'RE OUTTA HERE");
-                AddStrike();
-                DestroyBatter();
-                AddOut(1);
+                Debug.WriteLine($"Strike: {Globals.Strikes}");
+                AddStrike(1);
+                return true;
+            }
+
+            else if (totalResult == 0)
+            {
+                FoulBall();
+                /*Random random = new Random();
+                Debug.WriteLine("Time to do a calculation!");
+                var randomPitch = random.NextDouble();
+                var randomHit = random.NextDouble();
+
+                var pitch = currentPitchStrike * randomPitch;
+                var hit = currentBatChance * randomHit;
+
+                if (pitch > hit)
+                {
+                    Debug.WriteLine($"Strike: {Globals.Strikes}");
+                    AddStrike(1);
+                    return true;
+                }
+
+                else if (pitch < hit)
+                {
+                    Debug.WriteLine("Base hit");
+                    // trigger single hit animation
+                    BasesFunctions.AddRunner(1);
+                    return false;
+                }
+                else
+                {
+                    Debug.WriteLine("Still zero, mark as foul");
+                    // do foul ball animation 
+                    if (Globals.Strikes < 2)
+                    {
+                        Globals.Strikes++;
+                        // maybe should be replaced with a "discard batter"
+                        DestroyBatter();
+                        return false;
+                    }
+                }*/
             }
             else
             {
+                Debug.WriteLine("Base hit, adding Runner");
+                BasesFunctions.AddRunner(1);
                 DestroyBothCards();
+                return false;
             }
+            return false;
         }
 
-        public void CalculateBatHealth()
+        public static bool CalculateBatHealth()
         {
             var currentBatHealth = Globals.CurrentHit.CardHealth;
             var currentBatDefense = Globals.CurrentHit.CardDefense;
@@ -61,14 +117,18 @@ namespace StrikeThree.Receivers
             if (currentBatHealth > 0)
             {
                 Globals.CurrentHit.CardHealth = currentBatHealth;
+                return false;
+                // Add base runner
             }
             else if (currentBatHealth <= 0)
             {
                 Globals.CurrentHit.CardHealth = 0;
+                return true;
             }
+            return false;
         }
 
-        public void AddOut(int outs)
+        public static void AddOut(int outs)
         {
             if (Globals.Outs + outs < 3)
             {
@@ -77,10 +137,11 @@ namespace StrikeThree.Receivers
             else
             {
                 // destroy everything and change game state to next round?
+                Globals.Outs = 3;
             }
         }
 
-        public void CheckForBatBattleOut()
+        public static void CheckForBatBattleOut()
         {
             if (Globals.CurrentHit.CardHealth <= 0 && Globals.CurrentHit.Destroyed == false)
             {

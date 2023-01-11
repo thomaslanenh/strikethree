@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Xna.Framework.Graphics;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,12 +16,25 @@ namespace StrikeThree
         public static int Outs;
         public static int Strikes;
 
-        public static List<bool> Bases = new List<bool>()
+        public enum PitchStatus
         {
-            false, false, false, false
-        };
+            NONE,
+            STRIKE,
+            FOUL,
+            BASEHIT,
+            DOUBLE,
+            TRIPLE,
+            HOMERUN,
+            GRANDSLAM,
+            WALK
+        }
 
-        public static List<Card> CurrentPitcherHand = new List<Card>() 
+        public static PitchStatus CurrentPitchStatus = PitchStatus.NONE;
+
+
+        public static byte Bases = 0b1111;
+
+        public static List<Card> CurrentPitcherHand = new List<Card>()
         {
             new Card("Curveball", 5, 2, "Throw a curveball to the plate. 100% strike chance.", 1, 100, 0, 0, "12-6: If Curveball wins duel, force a Double Play at scoring position.")
         };
@@ -32,5 +46,13 @@ namespace StrikeThree
 
         public static Card CurrentPitch = CurrentPitcherHand[0];
         public static Card CurrentHit = CurrentBatterHand[0];
+
+        public enum TeamTypes {
+            HOME,
+            AWAY
+        };
+
+        public static Texture2D CurrentPitcherPic;
+        public static Texture2D CurrentHitPic;
     }
 }
